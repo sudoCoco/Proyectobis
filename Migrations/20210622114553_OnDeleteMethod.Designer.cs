@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proyectobis;
 
 namespace Proyectobis.Migrations
 {
     [DbContext(typeof(AgenciaColocacionContext))]
-    partial class AgenciaColocacionContextModelSnapshot : ModelSnapshot
+    [Migration("20210622114553_OnDeleteMethod")]
+    partial class OnDeleteMethod
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

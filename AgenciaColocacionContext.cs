@@ -35,7 +35,8 @@ namespace Proyectobis
                 entity.HasKey(o => o.OfertaId);
                 entity.HasOne(e => e.Empresa)
                     .WithMany(o => o.Ofertas)
-                    .HasForeignKey(o => o.EmpresaId);
+                    .HasForeignKey(o => o.EmpresaId)
+                    .OnDelete(DeleteBehavior.SetNull);
                 entity.Property(o => o.Titulo)
                     .IsRequired()
                     .HasColumnType("varchar")
@@ -43,21 +44,22 @@ namespace Proyectobis
                 entity.Property(o => o.Descripcion)
                     .HasColumnType("varchar");
             });
-
-
             modelBuilder.Entity<OfertaTrabajador>(entity =>
             {                
                 entity.HasKey(c => new { c.OfertaId, c.TrabajadorId, c.OfertaTrabajadorId});
                 entity.HasAlternateKey(o => o.OfertaTrabajadorId);
                 entity.HasOne(c => c.Oferta)
                     .WithMany(c => c.OfertaTrabajadores)
-                    .HasForeignKey(c => c.OfertaId);
+                    .HasForeignKey(c => c.OfertaId)
+                    .OnDelete(DeleteBehavior.SetNull);
                 entity.HasOne(c => c.Trabajador)
                     .WithMany(c => c.OfertaTrabajadores)
-                    .HasForeignKey(c => c.TrabajadorId);                 
+                    .HasForeignKey(c => c.TrabajadorId)
+                    .OnDelete(DeleteBehavior.SetNull);                 
                 entity.HasOne(c => c.Colocacion)
                     .WithOne(o => o.OfertaTrabajador)
-                    .HasForeignKey<Colocacion>(o => new { o.OfertaTrabajadorId, o.TrabajadorId, o.OfertaId });                  
+                    .HasForeignKey<Colocacion>(o => new { o.OfertaTrabajadorId, o.TrabajadorId, o.OfertaId })
+                    .OnDelete(DeleteBehavior.Cascade);                  
                 entity.Property(o => o.FechaOfertaEnviada)
                     .IsRequired()
                     .HasColumnType("date");
@@ -113,9 +115,7 @@ namespace Proyectobis
                 entity.Property(e => e.RazonSocial)
                     .IsRequired()
                     .HasMaxLength(55);
-            });
-
-                                    
+            });                                    
         }
     }
 }
