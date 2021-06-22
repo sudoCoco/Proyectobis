@@ -24,10 +24,9 @@ namespace Proyectobis
         {
             modelBuilder.Entity<Agencia>(entity =>
             {
-                entity.HasKey(entity => entity.CodigoAgencia);
+                entity.HasNoKey();
                 entity.Property(a => a.CodigoAgencia)
                     .IsRequired()
-                    .HasColumnType("int")
                     .HasMaxLength(10);
             });
             modelBuilder.Entity<Oferta>(entity =>
