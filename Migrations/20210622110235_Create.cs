@@ -11,7 +11,7 @@ namespace Proyectobis.Migrations
                 name: "Agencias",
                 columns: table => new
                 {
-                    CodigoAgencia = table.Column<int>(type: "int", maxLength: 10, nullable: false)
+                    CodigoAgencia = table.Column<int>(type: "INTEGER", maxLength: 10, nullable: false)
                         .Annotation("Sqlite:Autoincrement", true)
                 },
                 constraints: table =>
