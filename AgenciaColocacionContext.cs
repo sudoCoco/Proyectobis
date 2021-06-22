@@ -44,19 +44,31 @@ namespace Proyectobis
                     .HasColumnType("varchar");
             });
 
+
             modelBuilder.Entity<OfertaTrabajador>(entity =>
-            {
-                entity.HasKey(c => new { c.OfertaId, c.TrabajadorId, });
+            {                
+                entity.HasKey(c => new { c.OfertaId, c.TrabajadorId, c.OfertaTrabajadorId});
+                entity.HasAlternateKey(o => o.OfertaTrabajadorId);
                 entity.HasOne(c => c.Oferta)
                     .WithMany(c => c.OfertaTrabajadores)
                     .HasForeignKey(c => c.OfertaId);
                 entity.HasOne(c => c.Trabajador)
                     .WithMany(c => c.OfertaTrabajadores)
-                    .HasForeignKey(c => c.TrabajadorId);
+                    .HasForeignKey(c => c.TrabajadorId);                 
                 entity.HasOne(c => c.Colocacion)
                     .WithOne(o => o.OfertaTrabajador)
-                    .HasForeignKey<Colocacion>(c => c.OfertaTrabajadorId);
+                    .HasForeignKey<Colocacion>(o => new { o.OfertaTrabajadorId, o.TrabajadorId, o.OfertaId });                  
                 entity.Property(o => o.FechaOfertaEnviada)
+                    .IsRequired()
+                    .HasColumnType("date");
+            });
+            modelBuilder.Entity<Colocacion>(entity =>
+            {
+                entity.HasKey(entity => entity.ColocacionId);
+                entity.Property(e => e.TipoContrato)
+                    .IsRequired()
+                    .HasMaxLength(3);
+                entity.Property(e => e.FechaColocacion)
                     .IsRequired()
                     .HasColumnType("date");
             });
@@ -103,16 +115,7 @@ namespace Proyectobis
                     .HasMaxLength(55);
             });
 
-            modelBuilder.Entity<Colocacion>(entity =>
-            {
-                entity.HasKey(entity => entity.ColocacionId);
-                entity.Property(e => e.TipoContrato)
-                    .IsRequired()
-                    .HasMaxLength(3);
-                entity.Property(e => e.FechaColocacion)
-                    .IsRequired()
-                    .HasColumnType("date");
-            });                        
+                                    
         }
     }
 }

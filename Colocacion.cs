@@ -9,6 +9,8 @@ namespace Proyectobis
         public int ColocacionId { get; set; }
         public int OfertaTrabajadorId { get; set; }
         public int TipoContrato { get; set; }
+        public int OfertaId { get; set; }
+        public int TrabajadorId { get; set; }
         public DateTime FechaColocacion { get; set; }
 
         //Navegacion:
