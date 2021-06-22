@@ -46,7 +46,7 @@ namespace Proyectobis
 
             modelBuilder.Entity<OfertaTrabajador>(entity =>
             {
-                entity.HasKey(c => new { c.OfertaId, c.TrabajadorId });
+                entity.HasKey(c => new { c.OfertaId, c.TrabajadorId, });
                 entity.HasOne(c => c.Oferta)
                     .WithMany(c => c.OfertaTrabajadores)
                     .HasForeignKey(c => c.OfertaId);
@@ -56,6 +56,9 @@ namespace Proyectobis
                 entity.HasOne(c => c.Colocacion)
                     .WithOne(o => o.OfertaTrabajador)
                     .HasForeignKey<Colocacion>(c => c.OfertaTrabajadorId);
+                entity.Property(o => o.FechaOfertaEnviada)
+                    .IsRequired()
+                    .HasColumnType("date");
             });
 
             modelBuilder.Entity<Trabajador>(entity =>
