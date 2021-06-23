@@ -21,7 +21,7 @@ namespace Proyectobis.Migrations
                     b.Property<int>("CodigoAgencia")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(10)
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("CodigoAgencia");
 
@@ -31,28 +31,24 @@ namespace Proyectobis.Migrations
             modelBuilder.Entity("Proyectobis.Colocacion", b =>
                 {
                     b.Property<int>("ColocacionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("FechaColocacion")
-                        .HasColumnType("date");
-
-                    b.Property<int>("OfertaId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("OfertaTrabajadorId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("TipoContrato")
-                        .HasMaxLength(3)
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("TrabajadorId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("ColocacionId");
+                    b.Property<int>("OfertaId")
+                        .HasColumnType("INTEGER");
 
-                    b.HasIndex("OfertaTrabajadorId", "TrabajadorId", "OfertaId")
+                    b.Property<DateTime>("FechaColocacion")
+                        .HasColumnType("date");
+
+                    b.Property<int>("TipoContrato")
+                        .HasMaxLength(3)
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ColocacionId", "TrabajadorId", "OfertaId");
+
+                    b.HasIndex("TrabajadorId", "OfertaId")
                         .IsUnique();
 
                     b.ToTable("Colocaciones");
@@ -114,15 +110,10 @@ namespace Proyectobis.Migrations
                     b.Property<int>("TrabajadorId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("OfertaTrabajadorId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("FechaOfertaEnviada")
                         .HasColumnType("date");
 
-                    b.HasKey("OfertaId", "TrabajadorId", "OfertaTrabajadorId");
-
-                    b.HasAlternateKey("OfertaTrabajadorId");
+                    b.HasKey("OfertaId", "TrabajadorId");
 
                     b.HasIndex("TrabajadorId");
 
@@ -184,7 +175,7 @@ namespace Proyectobis.Migrations
                 {
                     b.HasOne("Proyectobis.OfertaTrabajador", "OfertaTrabajador")
                         .WithOne("Colocacion")
-                        .HasForeignKey("Proyectobis.Colocacion", "OfertaTrabajadorId", "TrabajadorId", "OfertaId")
+                        .HasForeignKey("Proyectobis.Colocacion", "TrabajadorId", "OfertaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
