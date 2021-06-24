@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proyectobis;
 
 namespace Proyectobis.Migrations
 {
     [DbContext(typeof(AgenciaColocacionContext))]
-    partial class AgenciaColocacionContextModelSnapshot : ModelSnapshot
+    [Migration("20210624124457_correxionrel")]
+    partial class correxionrel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,17 +177,6 @@ namespace Proyectobis.Migrations
                     b.ToTable("Trabajadores");
                 });
 
-            modelBuilder.Entity("Proyectobis.Colocacion", b =>
-                {
-                    b.HasOne("Proyectobis.OfertaTrabajador", "OfertaTrabajador")
-                        .WithOne("Colocacion")
-                        .HasForeignKey("Proyectobis.Colocacion", "OfertaTrabajadorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("OfertaTrabajador");
-                });
-
             modelBuilder.Entity("Proyectobis.Oferta", b =>
                 {
                     b.HasOne("Proyectobis.Empresa", "Empresa")
@@ -210,10 +201,16 @@ namespace Proyectobis.Migrations
                         .HasForeignKey("TrabajadorId")
                         .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
+                    b.HasOne("Proyectobis.Colocacion", "Colocacion")
+                        .WithOne("OfertaTrabajadores")
+                        .HasForeignKey("OfertaTrabajadorId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Oferta");
 
                     b.Navigation("Trabajador");
+
+                    b.Navigation("Colocacion");
                 });
 
             modelBuilder.Entity("Proyectobis.Empresa", b =>

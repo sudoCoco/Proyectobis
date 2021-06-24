@@ -7,6 +7,7 @@ namespace Proyectobis
 {
     public class OfertaTrabajador
     {
+        public int OfertaTrabajadorId { get; set; }
         public int OfertaId { get; set; }
         public int TrabajadorId { get; set; }
         public DateTime FechaOfertaEnviada { get; set; }
