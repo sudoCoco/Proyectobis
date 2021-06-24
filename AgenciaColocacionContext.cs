@@ -60,7 +60,7 @@ namespace Proyectobis
                     .OnDelete(DeleteBehavior.Cascade);
                 entity.Property(o => o.FechaOfertaEnviada)
                     .IsRequired()
-                    .HasColumnType("date");
+                    .HasColumnType("DATE");
             });
             modelBuilder.Entity<Colocacion>(entity =>
             {
@@ -70,7 +70,7 @@ namespace Proyectobis
                     .HasMaxLength(3);
                 entity.Property(e => e.FechaColocacion)
                     .IsRequired()
-                    .HasColumnType("date");
+                    .HasColumnType("DATE");
             });
 
             modelBuilder.Entity<Trabajador>(entity =>
@@ -88,7 +88,7 @@ namespace Proyectobis
                     .IsRequired()
                     .HasMaxLength(15);
                 entity.Property(c => c.FechaNacimiento)
-                    .HasColumnType("date")
+                    .HasColumnType("DATE")
                     .IsRequired()
                     .HasMaxLength(8);
                 entity.Property(c => c.Sexo)
