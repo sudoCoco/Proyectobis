@@ -44,8 +44,8 @@ namespace Proyectobis
                     .HasColumnType("varchar");
             });
             modelBuilder.Entity<OfertaTrabajador>(entity =>
-            {                
-                entity.HasKey(c => new { c.OfertaId, c.TrabajadorId});
+            {
+                entity.HasKey(c => new { c.OfertaId, c.TrabajadorId });
                 entity.HasOne(c => c.Oferta)
                     .WithMany(c => c.OfertaTrabajadores)
                     .HasForeignKey(c => c.OfertaId)
@@ -53,18 +53,18 @@ namespace Proyectobis
                 entity.HasOne(c => c.Trabajador)
                     .WithMany(c => c.OfertaTrabajadores)
                     .HasForeignKey(c => c.TrabajadorId)
-                    .OnDelete(DeleteBehavior.SetNull);                 
+                    .OnDelete(DeleteBehavior.SetNull);
                 entity.HasOne(c => c.Colocacion)
                     .WithOne(o => o.OfertaTrabajador)
                     .HasForeignKey<Colocacion>(o => new { o.TrabajadorId, o.OfertaId })
-                    .OnDelete(DeleteBehavior.Cascade);                  
+                    .OnDelete(DeleteBehavior.Cascade);
                 entity.Property(o => o.FechaOfertaEnviada)
                     .IsRequired()
                     .HasColumnType("date");
             });
             modelBuilder.Entity<Colocacion>(entity =>
             {
-                entity.HasKey(entity => new { entity.ColocacionId, entity.TrabajadorId, entity.OfertaId});
+                entity.HasKey(entity => new { entity.ColocacionId, entity.TrabajadorId, entity.OfertaId });
                 entity.Property(e => e.TipoContrato)
                     .IsRequired()
                     .HasMaxLength(3);
